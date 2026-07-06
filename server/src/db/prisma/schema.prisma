@@ -1,0 +1,190 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  user
+  admin
+}
+
+enum ClusterStatus{
+  active
+  superseded
+}
+
+enum Channel{
+  email
+}
+
+enum Status{
+  pending
+  sent
+  failed
+}
+model User{
+  id String @id @default(uuid())
+  email String @unique
+  passwordHash String @map("password_hash")
+  name String
+  role Role @default(user)
+  refreshTokenVersion Int @default(0) @map("refresh_token_version")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  notifications Notification[]
+  watchlists Watchlist[]
+  @@map("users")
+}
+
+model Company{
+  id String @id @default(uuid())
+  cik String @unique
+  ticker String? 
+  name String
+  sector String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  watchlists Watchlist[]
+  clusters Cluster[]
+  filings Filing[]
+  roles InsiderRole[]
+  @@index([ticker])
+  @@map("companies")
+}
+
+model Insider{
+  id String @id @default(uuid())
+  cik String @unique
+  name String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  filings Filing[]
+  roles InsiderRole[]
+  @@map("insiders")
+}
+
+model InsiderRole{
+  id String @id @default(uuid())
+  insiderId String @map("insider_id")
+  insider Insider @relation(fields: [insiderId], references: [id])
+  companyId String @map("company_id")
+  company Company @relation(fields: [companyId], references: [id])
+  title String
+  isOfficer Boolean @map("is_officer")
+  isDirector Boolean @map("is_director")
+  isTenPercentOwner Boolean @map("is_ten_percent_owner")
+  effectiveDate DateTime? @map("effective_date")
+
+  @@unique([insiderId, companyId])
+  @@map("insider_roles")
+}
+
+model Filing{
+  id String @id @default(uuid())
+  formType String @default("4") @map("form_type")
+  filingDate DateTime @map("filing_date")
+  periodOfReport DateTime @map("period_of_report")
+  rawUrl String @map("raw_url")
+  rawPayload Json @map("raw_payload")
+  accessionNumber String @unique @map("accession_number")
+  companyId String @map("company_id")
+  company Company @relation(fields: [companyId], references: [id])
+  insiderId String @map("insider_id")
+  insider Insider @relation(fields: [insiderId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
+  parsedAt DateTime? @map("parsed_at")
+
+  transactions Transaction[]
+  @@index([companyId, filingDate])
+  @@map("filings")
+}
+
+model Transaction{
+  id String @id @default(uuid())
+  filingId String @map("filing_id")
+  filing Filing @relation(fields: [filingId], references: [id])
+  transactionCode String @map("transaction_code")
+  transactionDate DateTime @map("transaction_date")
+  shares Decimal
+  pricePerShare Decimal? @map("price_per_share")
+  sharesOwnedAfter Decimal @map("shares_owned_after")
+  totalValue Decimal? @map("total_value")
+  isDerivative Boolean @map("is_derivative")
+  is10b51 Boolean @default(false) @map("is_10b5_1")
+  directOrIndirect String @map("direct_or_indirect")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  clusterTransactions ClusterTransaction[]
+  @@index([filingId])
+  @@index([transactionCode])
+  @@index([transactionDate])
+  @@index([transactionCode, is10b51, transactionDate])
+  @@map("transactions")
+}
+
+
+model Cluster{
+  id String @id @default(uuid())
+  companyId String @map("company_id")
+  company Company @relation(fields: [companyId], references: [id])
+  windowStart DateTime @map("window_start")
+  windowEnd DateTime @map("window_end")
+  insiderCount Int @map("insider_count")
+  totalValue Decimal @map("total_value")
+  score Decimal
+  status ClusterStatus @default(active)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([companyId, windowStart])
+  @@index([score])
+  clusterTransactions ClusterTransaction[]
+  notifications Notification[]
+  @@map("clusters")
+}
+
+model ClusterTransaction{
+  clusterId String @map("cluster_id")
+  cluster Cluster @relation(fields: [clusterId], references: [id])
+  transactionId String @map("transaction_id")
+  transaction Transaction @relation(fields: [transactionId], references: [id])
+
+  @@id([clusterId, transactionId])
+  @@map("cluster_transactions")
+}
+
+model Watchlist{
+  id String @id @default(uuid())
+  userId String @map("user_id")
+  user User @relation(fields: [userId], references: [id])
+  companyId String @map("company_id")
+  company Company @relation(fields: [companyId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([userId, companyId])
+  @@map("watchlists")
+
+}
+
+model Notification{
+  id String @id @default(uuid())
+  userId String @map("user_id")
+  user User @relation(fields: [userId], references: [id])
+  clusterId String @map("cluster_id")
+  cluster Cluster @relation(fields: [clusterId], references: [id])
+  channel Channel
+  status Status @default(pending)
+  sentAt DateTime? @map("sent_at")
+
+  @@unique([userId, clusterId, channel])
+  @@map("notifications")
+}

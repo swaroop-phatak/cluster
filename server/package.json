@@ -7,14 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn src/server.ts",
     "lint": "eslint .",
-    "test:edgar": "tsx src/scripts/test-edgar.ts"
+    "test:edgar": "tsx src/scripts/test-edgar.ts",
+    "test:parse": "tsx src/scripts/test-xml-parser.ts",
+    "test:filing-parser": "tsx src/scripts/test-filing-parser.ts",
+    "test:primary-doc": "tsx src/scripts/test-primary-doc-parser.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^7.8.0",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "fast-xml-parser": "^5.9.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -78,7 +78,7 @@ model InsiderRole{
   insider Insider @relation(fields: [insiderId], references: [id])
   companyId String @map("company_id")
   company Company @relation(fields: [companyId], references: [id])
-  title String
+  title String?
   isOfficer Boolean @map("is_officer")
   isDirector Boolean @map("is_director")
   isTenPercentOwner Boolean @map("is_ten_percent_owner")

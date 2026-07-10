@@ -1,0 +1,456 @@
+<ownershipDocument>
+<schemaVersion>X0609</schemaVersion>
+<documentType>4</documentType>
+<periodOfReport>2026-06-29</periodOfReport>
+<notSubjectToSection16>0</notSubjectToSection16>
+<issuer>
+<issuerCik>0001659494</issuerCik>
+<issuerName>51Talk Online Education Group</issuerName>
+<issuerTradingSymbol>COE</issuerTradingSymbol>
+<issuerForeignTradingSymbol/>
+</issuer>
+<reportingOwner>
+<reportingOwnerId>
+<rptOwnerCik>0002029760</rptOwnerCik>
+<rptOwnerName>Huang Jack Jiajia</rptOwnerName>
+</reportingOwnerId>
+<reportingOwnerAddress>
+<rptOwnerNonUSAddressFlag>true</rptOwnerNonUSAddressFlag>
+<rptOwnerStreet1>ROOM 2010 - 2011, 20/F, TOWER 1</rptOwnerStreet1>
+<rptOwnerStreet2>TIMES SQUARE</rptOwnerStreet2>
+<rptOwnerCity>SINGAPORE</rptOwnerCity>
+<rptOwnerNonUSStateTerritory>U0</rptOwnerNonUSStateTerritory>
+<rptOwnerCountry>U0</rptOwnerCountry>
+<rptOwnerZipCode>068809</rptOwnerZipCode>
+<rptOwnerStateDescription>SINGAPORE</rptOwnerStateDescription>
+</reportingOwnerAddress>
+<reportingOwnerRelationship>
+<isDirector>1</isDirector>
+<isOfficer>1</isOfficer>
+<isTenPercentOwner>1</isTenPercentOwner>
+<isOther>0</isOther>
+<officerTitle>Chief Executive Officer</officerTitle>
+<otherText/>
+</reportingOwnerRelationship>
+</reportingOwner>
+<aff10b5One>1</aff10b5One>
+<nonDerivativeTable>
+<nonDerivativeTransaction>
+<securityTitle>
+<value>Class A Ordinary Share, par value US$0.0001</value>
+<footnoteId id="F1"/>
+</securityTitle>
+<transactionDate>
+<value>2026-06-29</value>
+</transactionDate>
+<deemedExecutionDate/>
+<transactionCoding>
+<transactionFormType>4</transactionFormType>
+<transactionCode>P</transactionCode>
+<equitySwapInvolved>0</equitySwapInvolved>
+<footnoteId id="F2"/>
+</transactionCoding>
+<transactionTimeliness/>
+<transactionAmounts>
+<transactionShares>
+<value>152820</value>
+</transactionShares>
+<transactionPricePerShare>
+<value>15.23</value>
+<footnoteId id="F3"/>
+</transactionPricePerShare>
+<transactionAcquiredDisposedCode>
+<value>A</value>
+</transactionAcquiredDisposedCode>
+</transactionAmounts>
+<postTransactionAmounts>
+<sharesOwnedFollowingTransaction>
+<value>28512780</value>
+</sharesOwnedFollowingTransaction>
+</postTransactionAmounts>
+<ownershipNature>
+<directOrIndirectOwnership>
+<value>I</value>
+</directOrIndirectOwnership>
+<natureOfOwnership>
+<value>By HH Talent Limited</value>
+<footnoteId id="F4"/>
+</natureOfOwnership>
+</ownershipNature>
+</nonDerivativeTransaction>
+<nonDerivativeTransaction>
+<securityTitle>
+<value>Class A Ordinary Share, par value US$0.0001</value>
+<footnoteId id="F1"/>
+</securityTitle>
+<transactionDate>
+<value>2026-06-29</value>
+</transactionDate>
+<deemedExecutionDate/>
+<transactionCoding>
+<transactionFormType>4</transactionFormType>
+<transactionCode>P</transactionCode>
+<equitySwapInvolved>0</equitySwapInvolved>
+<footnoteId id="F2"/>
+</transactionCoding>
+<transactionTimeliness/>
+<transactionAmounts>
+<transactionShares>
+<value>60000</value>
+</transactionShares>
+<transactionPricePerShare>
+<value>15.20</value>
+<footnoteId id="F5"/>
+</transactionPricePerShare>
+<transactionAcquiredDisposedCode>
+<value>A</value>
+</transactionAcquiredDisposedCode>
+</transactionAmounts>
+<postTransactionAmounts>
+<sharesOwnedFollowingTransaction>
+<value>28572780</value>
+</sharesOwnedFollowingTransaction>
+</postTransactionAmounts>
+<ownershipNature>
+<directOrIndirectOwnership>
+<value>I</value>
+</directOrIndirectOwnership>
+<natureOfOwnership>
+<value>By HH Talent Limited</value>
+<footnoteId id="F4"/>
+</natureOfOwnership>
+</ownershipNature>
+</nonDerivativeTransaction>
+<nonDerivativeTransaction>
+<securityTitle>
+<value>Class A Ordinary Share, par value US$0.0001</value>
+<footnoteId id="F1"/>
+</securityTitle>
+<transactionDate>
+<value>2026-06-29</value>
+</transactionDate>
+<deemedExecutionDate/>
+<transactionCoding>
+<transactionFormType>4</transactionFormType>
+<transactionCode>P</transactionCode>
+<equitySwapInvolved>0</equitySwapInvolved>
+<footnoteId id="F2"/>
+</transactionCoding>
+<transactionTimeliness/>
+<transactionAmounts>
+<transactionShares>
+<value>35700</value>
+</transactionShares>
+<transactionPricePerShare>
+<value>15.21</value>
+<footnoteId id="F6"/>
+</transactionPricePerShare>
+<transactionAcquiredDisposedCode>
+<value>A</value>
+</transactionAcquiredDisposedCode>
+</transactionAmounts>
+<postTransactionAmounts>
+<sharesOwnedFollowingTransaction>
+<value>28608480</value>
+</sharesOwnedFollowingTransaction>
+</postTransactionAmounts>
+<ownershipNature>
+<directOrIndirectOwnership>
+<value>I</value>
+</directOrIndirectOwnership>
+<natureOfOwnership>
+<value>By HH Talent Limited</value>
+<footnoteId id="F4"/>
+</natureOfOwnership>
+</ownershipNature>
+</nonDerivativeTransaction>
+<nonDerivativeTransaction>
+<securityTitle>
+<value>Class A Ordinary Share, par value US$0.0001</value>
+<footnoteId id="F1"/>
+</securityTitle>
+<transactionDate>
+<value>2026-06-30</value>
+</transactionDate>
+<deemedExecutionDate/>
+<transactionCoding>
+<transactionFormType>4</transactionFormType>
+<transactionCode>P</transactionCode>
+<equitySwapInvolved>0</equitySwapInvolved>
+<footnoteId id="F2"/>
+</transactionCoding>
+<transactionTimeliness/>
+<transactionAmounts>
+<transactionShares>
+<value>293520</value>
+</transactionShares>
+<transactionPricePerShare>
+<value>15.98</value>
+<footnoteId id="F7"/>
+</transactionPricePerShare>
+<transactionAcquiredDisposedCode>
+<value>A</value>
+</transactionAcquiredDisposedCode>
+</transactionAmounts>
+<postTransactionAmounts>
+<sharesOwnedFollowingTransaction>
+<value>28902000</value>
+</sharesOwnedFollowingTransaction>
+</postTransactionAmounts>
+<ownershipNature>
+<directOrIndirectOwnership>
+<value>I</value>
+</directOrIndirectOwnership>
+<natureOfOwnership>
+<value>By HH Talent Limited</value>
+<footnoteId id="F4"/>
+</natureOfOwnership>
+</ownershipNature>
+</nonDerivativeTransaction>
+<nonDerivativeTransaction>
+<securityTitle>
+<value>Class A Ordinary Share, par value US$0.0001</value>
+<footnoteId id="F1"/>
+</securityTitle>
+<transactionDate>
+<value>2026-06-30</value>
+</transactionDate>
+<deemedExecutionDate/>
+<transactionCoding>
+<transactionFormType>4</transactionFormType>
+<transactionCode>P</transactionCode>
+<equitySwapInvolved>0</equitySwapInvolved>
+<footnoteId id="F2"/>
+</transactionCoding>
+<transactionTimeliness/>
+<transactionAmounts>
+<transactionShares>
+<value>60000</value>
+</transactionShares>
+<transactionPricePerShare>
+<value>15.52</value>
+<footnoteId id="F8"/>
+</transactionPricePerShare>
+<transactionAcquiredDisposedCode>
+<value>A</value>
+</transactionAcquiredDisposedCode>
+</transactionAmounts>
+<postTransactionAmounts>
+<sharesOwnedFollowingTransaction>
+<value>28962000</value>
+</sharesOwnedFollowingTransaction>
+</postTransactionAmounts>
+<ownershipNature>
+<directOrIndirectOwnership>
+<value>I</value>
+</directOrIndirectOwnership>
+<natureOfOwnership>
+<value>By HH Talent Limited</value>
+<footnoteId id="F4"/>
+</natureOfOwnership>
+</ownershipNature>
+</nonDerivativeTransaction>
+<nonDerivativeTransaction>
+<securityTitle>
+<value>Class A Ordinary Share, par value US$0.0001</value>
+<footnoteId id="F1"/>
+</securityTitle>
+<transactionDate>
+<value>2026-06-30</value>
+</transactionDate>
+<deemedExecutionDate/>
+<transactionCoding>
+<transactionFormType>4</transactionFormType>
+<transactionCode>P</transactionCode>
+<equitySwapInvolved>0</equitySwapInvolved>
+<footnoteId id="F2"/>
+</transactionCoding>
+<transactionTimeliness/>
+<transactionAmounts>
+<transactionShares>
+<value>60</value>
+</transactionShares>
+<transactionPricePerShare>
+<value>15.95</value>
+</transactionPricePerShare>
+<transactionAcquiredDisposedCode>
+<value>A</value>
+</transactionAcquiredDisposedCode>
+</transactionAmounts>
+<postTransactionAmounts>
+<sharesOwnedFollowingTransaction>
+<value>28962060</value>
+</sharesOwnedFollowingTransaction>
+</postTransactionAmounts>
+<ownershipNature>
+<directOrIndirectOwnership>
+<value>I</value>
+</directOrIndirectOwnership>
+<natureOfOwnership>
+<value>By HH Talent Limited</value>
+<footnoteId id="F4"/>
+</natureOfOwnership>
+</ownershipNature>
+</nonDerivativeTransaction>
+<nonDerivativeTransaction>
+<securityTitle>
+<value>Class A Ordinary Share, par value US$0.0001</value>
+<footnoteId id="F1"/>
+</securityTitle>
+<transactionDate>
+<value>2026-07-01</value>
+</transactionDate>
+<deemedExecutionDate/>
+<transactionCoding>
+<transactionFormType>4</transactionFormType>
+<transactionCode>P</transactionCode>
+<equitySwapInvolved>0</equitySwapInvolved>
+<footnoteId id="F2"/>
+</transactionCoding>
+<transactionTimeliness/>
+<transactionAmounts>
+<transactionShares>
+<value>286800</value>
+</transactionShares>
+<transactionPricePerShare>
+<value>16.57</value>
+<footnoteId id="F9"/>
+</transactionPricePerShare>
+<transactionAcquiredDisposedCode>
+<value>A</value>
+</transactionAcquiredDisposedCode>
+</transactionAmounts>
+<postTransactionAmounts>
+<sharesOwnedFollowingTransaction>
+<value>29248860</value>
+</sharesOwnedFollowingTransaction>
+</postTransactionAmounts>
+<ownershipNature>
+<directOrIndirectOwnership>
+<value>I</value>
+</directOrIndirectOwnership>
+<natureOfOwnership>
+<value>By HH Talent Limited</value>
+<footnoteId id="F4"/>
+</natureOfOwnership>
+</ownershipNature>
+</nonDerivativeTransaction>
+<nonDerivativeTransaction>
+<securityTitle>
+<value>Class A Ordinary Share, par value US$0.0001</value>
+<footnoteId id="F1"/>
+</securityTitle>
+<transactionDate>
+<value>2026-07-02</value>
+</transactionDate>
+<deemedExecutionDate/>
+<transactionCoding>
+<transactionFormType>4</transactionFormType>
+<transactionCode>P</transactionCode>
+<equitySwapInvolved>0</equitySwapInvolved>
+<footnoteId id="F2"/>
+</transactionCoding>
+<transactionTimeliness/>
+<transactionAmounts>
+<transactionShares>
+<value>556020</value>
+</transactionShares>
+<transactionPricePerShare>
+<value>16.78</value>
+<footnoteId id="F10"/>
+</transactionPricePerShare>
+<transactionAcquiredDisposedCode>
+<value>A</value>
+</transactionAcquiredDisposedCode>
+</transactionAmounts>
+<postTransactionAmounts>
+<sharesOwnedFollowingTransaction>
+<value>29804880</value>
+</sharesOwnedFollowingTransaction>
+</postTransactionAmounts>
+<ownershipNature>
+<directOrIndirectOwnership>
+<value>I</value>
+</directOrIndirectOwnership>
+<natureOfOwnership>
+<value>By HH Talent Limited</value>
+<footnoteId id="F4"/>
+</natureOfOwnership>
+</ownershipNature>
+</nonDerivativeTransaction>
+<nonDerivativeHolding>
+<securityTitle>
+<value>Class A Ordinary Share, par value US$0.0001</value>
+<footnoteId id="F1"/>
+</securityTitle>
+<postTransactionAmounts>
+<sharesOwnedFollowingTransaction>
+<value>7297560</value>
+</sharesOwnedFollowingTransaction>
+</postTransactionAmounts>
+<ownershipNature>
+<directOrIndirectOwnership>
+<value>D</value>
+</directOrIndirectOwnership>
+</ownershipNature>
+</nonDerivativeHolding>
+<nonDerivativeHolding>
+<securityTitle>
+<value>Class A Ordinary Share, par value US$0.0001</value>
+<footnoteId id="F1"/>
+</securityTitle>
+<postTransactionAmounts>
+<sharesOwnedFollowingTransaction>
+<value>432900</value>
+</sharesOwnedFollowingTransaction>
+</postTransactionAmounts>
+<ownershipNature>
+<directOrIndirectOwnership>
+<value>I</value>
+</directOrIndirectOwnership>
+<natureOfOwnership>
+<value>By Spouse</value>
+<footnoteId id="F11"/>
+</natureOfOwnership>
+</ownershipNature>
+</nonDerivativeHolding>
+<nonDerivativeHolding>
+<securityTitle>
+<value>Class A Ordinary Share, par value US$0.0001</value>
+<footnoteId id="F1"/>
+</securityTitle>
+<postTransactionAmounts>
+<sharesOwnedFollowingTransaction>
+<value>42251300</value>
+</sharesOwnedFollowingTransaction>
+</postTransactionAmounts>
+<ownershipNature>
+<directOrIndirectOwnership>
+<value>I</value>
+</directOrIndirectOwnership>
+<natureOfOwnership>
+<value>By Dasheng Global Limited</value>
+<footnoteId id="F12"/>
+</natureOfOwnership>
+</ownershipNature>
+</nonDerivativeHolding>
+</nonDerivativeTable>
+<footnotes>
+<footnote id="F1">The Class A ordinary shares are held in the form of American depositary shares ("ADS"). Each ADS represents sixty Class A ordinary shares.</footnote>
+<footnote id="F2">These transactions were effected pursuant to a Rule 10b5-1 trading plan previously adopted by the reporting person on December 25, 2025.</footnote>
+<footnote id="F3">The price reported in Column 4 is a weighted average price of ADS. The reporting person executed a trade order through a broker-dealer which resulted in multiple same-day, same-way open market purchases, with prices ranging from $15.00 to $15.67 per ADS. The reporting person has reported these purchases on an aggregate basis using the weighted average price, rounded to the nearest cent, for the transactions. The reporting person undertakes to provide, upon request by the staff of the Securities and Exchange Commission, the issuer, or a security holder of the issuer, full information regarding the number of ADS purchased at each price. All of these ADS were purchased by HH Talent Limited (as defined below).</footnote>
+<footnote id="F4">HH Talent Limited is a British Virgin Islands company. The reporting person is the sole director of HH Talent Limited. HH Talent Limited is wholly beneficially owned by HH Talent Holdings Limited, which is in turn wholly owned by HH Talent Trust, for which TMF (Cayman) Ltd. acts as the trustee (the "Trustee"). S.B. Vanwall Ltd., appointed by the Trustee, is the sole director of HH Talent Holdings Limited. The settlor of HH Talent Trust is the reporting person. The reporting person is deemed to be the beneficial owner of the shares directly held by HH Talent Limited.</footnote>
+<footnote id="F5">The price reported in Column 4 is a weighted average price of ADS. The reporting person executed a trade order through a broker-dealer which resulted in multiple same-day, same-way open market purchases, with prices at $15.20 per ADS. The reporting person has reported these purchases on an aggregate basis using the weighted average price, rounded to the nearest cent, for the transactions. The reporting person undertakes to provide, upon request by the staff of the Securities and Exchange Commission, the issuer, or a security holder of the issuer, full information regarding the number of ADS purchased at each price. All of these ADS were purchased by HH Talent Limited (as defined above).</footnote>
+<footnote id="F6">The price reported in Column 4 is a weighted average price of ADS. The reporting person executed a trade order through a broker-dealer which resulted in multiple same-day, same-way open market purchases, with prices ranging from $15.20 to $15.21 per ADS. The reporting person has reported these purchases on an aggregate basis using the weighted average price, rounded to the nearest cent, for the transactions. The reporting person undertakes to provide, upon request by the staff of the Securities and Exchange Commission, the issuer, or a security holder of the issuer, full information regarding the number of ADS purchased at each price. All of these ADS were purchased by HH Talent Limited (as defined above).</footnote>
+<footnote id="F7">The price reported in Column 4 is a weighted average price of ADS. The reporting person executed a trade order through a broker-dealer which resulted in multiple same-day, same-way open market purchases, with prices ranging from $15.22 to $16.38 per ADS. The reporting person has reported these purchases on an aggregate basis using the weighted average price, rounded to the nearest cent, for the transactions. The reporting person undertakes to provide, upon request by the staff of the Securities and Exchange Commission, the issuer, or a security holder of the issuer, full information regarding the number of ADS purchased at each price. All of these ADS were purchased by HH Talent Limited (as defined above).</footnote>
+<footnote id="F8">The price reported in Column 4 is a weighted average price of ADS. The reporting person executed a trade order through a broker-dealer which resulted in multiple same-day, same-way open market purchases, with prices at $15.52 per ADS. The reporting person has reported these purchases on an aggregate basis using the weighted average price, rounded to the nearest cent, for the transactions. The reporting person undertakes to provide, upon request by the staff of the Securities and Exchange Commission, the issuer, or a security holder of the issuer, full information regarding the number of ADS purchased at each price. All of these ADS were purchased by HH Talent Limited (as defined above).</footnote>
+<footnote id="F9">The price reported in Column 4 is a weighted average price of ADS. The reporting person executed a trade order through a broker-dealer which resulted in multiple same-day, same-way open market purchases, with prices ranging from $16.24 to $16.96 per ADS. The reporting person has reported these purchases on an aggregate basis using the weighted average price, rounded to the nearest cent, for the transactions. The reporting person undertakes to provide, upon request by the staff of the Securities and Exchange Commission, the issuer, or a security holder of the issuer, full information regarding the number of ADS purchased at each price. All of these ADS were purchased by HH Talent Limited (as defined above).</footnote>
+<footnote id="F10">The price reported in Column 4 is a weighted average price of ADS. The reporting person executed a trade order through a broker-dealer which resulted in multiple same-day, same-way open market purchases, with prices ranging from $16.00 to $17.93 per ADS. The reporting person has reported these purchases on an aggregate basis using the weighted average price, rounded to the nearest cent, for the transactions. The reporting person undertakes to provide, upon request by the staff of the Securities and Exchange Commission, the issuer, or a security holder of the issuer, full information regarding the number of ADS purchased at each price. All of these ADS were purchased by HH Talent Limited (as defined above).</footnote>
+<footnote id="F11">The reporting person disclaims beneficial ownership of the shares held by his spouse except to the extent of his pecuniary interest, if any, and this report should not be deemed an admission that the reporting person is the beneficial owner of the shares held by his spouse for purposes of Section 16 or for any other purpose.</footnote>
+<footnote id="F12">Each of Dasheng Global Limited and Dasheng Online Limited is a British Virgin Islands company. The reporting person is the sole director of Dasheng Global Limited, and Ms. Ting Shu, who is the spouse of the reporting person, is the sole director of Dasheng Online Limited. Each of Dasheng Global Limited and Dasheng Online Limited is wholly beneficially owned by Dasheng International Holdings Limited, which is in turn wholly owned by TB Family Trust, for which TMF (Cayman) Ltd. acts as the trustee (the "Trustee"). S.B. Vanwall Ltd., appointed by the Trustee, is the sole director of Dasheng International Holdings Limited. The settlors of TB Family Trust are reporting person and Ms. Ting Shu. The reporting person, Ms. Ting Shu and their family members are deemed to be beneficial owners of the shares directly held by Dasheng Global Limited and Dasheng Online Limited.</footnote>
+</footnotes>
+<ownerSignature>
+<signatureName>/s/ Jack Jiajia Huang</signatureName>
+<signatureDate>2026-07-08</signatureDate>
+</ownerSignature>
+</ownershipDocument>

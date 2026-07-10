@@ -4,7 +4,7 @@ interface ParsedFiling {
   company: { cik: string; name: string; ticker: string };
   insider: { cik: string; name: string };
   role: {
-    title: string;
+    title: string | null;
     isOfficer: boolean;
     isDirector: boolean;
     isTenPercentOwner: boolean;
@@ -43,6 +43,10 @@ const parser = new XMLParser({
   },
 });
 
+function toBoolean(value: unknown): boolean {
+  return value === true || value === 1;
+}
+
 function collectFootnoteIds(node: any): string[] {
   const footnoteIds: string[] = [];
   if (!node || typeof node !== "object") {
@@ -66,8 +70,8 @@ function isTransactionSubjectTo10b51(
   footnotes: Array<{ "@_id": string; "#text": string }>,
   documentLevelFlag: number | boolean | undefined,
 ): boolean {
-  const hasDocumentLevelFlag =
-    documentLevelFlag === 1 || documentLevelFlag === true;
+  
+  const hasDocumentLevelFlag = toBoolean(documentLevelFlag);
 
   const footnoteIds = collectFootnoteIds(transaction);
 
@@ -138,11 +142,11 @@ export function parseForm4Xml(xml: string): ParsedFiling {
   const relationship = document.reportingOwner.reportingOwnerRelationship;
 
   const role = {
-    title: relationship.officerTitle,
-    isOfficer: relationship.isOfficer,
-    isDirector: relationship.isDirector,
-    isTenPercentOwner: relationship.isTenPercentOwner,
-  };
+  title: relationship.officerTitle ?? null,
+  isOfficer: toBoolean(relationship.isOfficer),
+  isDirector: toBoolean(relationship.isDirector),
+  isTenPercentOwner: toBoolean(relationship.isTenPercentOwner),
+};
 
   const periodOfReport = document.periodOfReport;
 

@@ -10,7 +10,8 @@
     "test:edgar": "tsx src/scripts/test-edgar.ts",
     "test:parse": "tsx src/scripts/test-xml-parser.ts",
     "test:filing-parser": "tsx src/scripts/test-filing-parser.ts",
-    "test:primary-doc": "tsx src/scripts/test-primary-doc-parser.ts"
+    "test:primary-doc": "tsx src/scripts/test-primary-doc-parser.ts",
+    "test:batch-inspector": "tsx src/scripts/test-batch-inspector.ts"
   },
   "keywords": [],
   "author": "",

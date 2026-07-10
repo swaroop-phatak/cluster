@@ -7,7 +7,7 @@ const filePath = path.join(
   process.cwd(),
   "tests",
   "fixtures",
-  "form4-sample-1-10b5-1.xml"
+  "form4-sample-5-ten-percent-owner.xml",
 );
 
 const xml = fs.readFileSync(filePath, "utf-8");

@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "ts-node-dev --respawn src/server.ts",
     "lint": "eslint .",
     "test:edgar": "tsx src/scripts/test-edgar.ts",
     "test:parse": "tsx src/scripts/test-xml-parser.ts",
     "test:filing-parser": "tsx src/scripts/test-filing-parser.ts",
     "test:primary-doc": "tsx src/scripts/test-primary-doc-parser.ts",
-    "test:batch-inspector": "tsx src/scripts/test-batch-inspector.ts"
+    "test:batch-inspector": "tsx src/scripts/test-batch-inspector.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -24,11 +26,14 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
     "@types/node": "^26.1.0",
     "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",
+    "jest": "^30.4.2",
     "prettier": "^3.9.4",
     "prisma": "^7.8.0",
+    "ts-jest": "^29.4.11",
     "ts-node-dev": "^2.0.0",
     "tsx": "^4.23.0",
     "typescript": "^6.0.3",

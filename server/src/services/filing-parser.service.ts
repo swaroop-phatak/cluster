@@ -19,6 +19,7 @@ interface ParsedTransaction {
   transactionCode: string;
   shares: number;
   pricePerShare: number | null;
+  totalValue: number | null;
   sharesOwnedAfter: number;
   isDerivative: boolean;
   directOrIndirect: string;
@@ -70,7 +71,6 @@ function isTransactionSubjectTo10b51(
   footnotes: Array<{ "@_id": string; "#text": string }>,
   documentLevelFlag: number | boolean | undefined,
 ): boolean {
-  
   const hasDocumentLevelFlag = toBoolean(documentLevelFlag);
 
   const footnoteIds = collectFootnoteIds(transaction);
@@ -92,12 +92,20 @@ function isTransactionSubjectTo10b51(
   return hasDocumentLevelFlag;
 }
 
-function mapTransaction (
+function mapTransaction(
   transaction: any,
   isDerivative: boolean,
   footnotes: Array<{ "@_id": string; "#text": string }>,
   documentLevelFlag: number | boolean | undefined,
-) : ParsedTransaction{
+): ParsedTransaction {
+  const pricePerShare =
+    transaction.transactionAmounts.transactionPricePerShare?.value ?? null;
+
+  const totalValue =
+    pricePerShare !== null
+      ? transaction.transactionAmounts.transactionShares.value * pricePerShare
+      : null;
+
   return {
     securityTitle: transaction.securityTitle.value,
     transactionDate: transaction.transactionDate.value,
@@ -105,8 +113,9 @@ function mapTransaction (
 
     shares: transaction.transactionAmounts.transactionShares.value,
 
-    pricePerShare:
-      transaction.transactionAmounts.transactionPricePerShare?.value ?? null,
+    pricePerShare,
+
+    totalValue,
 
     sharesOwnedAfter:
       transaction.postTransactionAmounts.sharesOwnedFollowingTransaction.value,
@@ -142,11 +151,11 @@ export function parseForm4Xml(xml: string): ParsedFiling {
   const relationship = document.reportingOwner.reportingOwnerRelationship;
 
   const role = {
-  title: relationship.officerTitle ?? null,
-  isOfficer: toBoolean(relationship.isOfficer),
-  isDirector: toBoolean(relationship.isDirector),
-  isTenPercentOwner: toBoolean(relationship.isTenPercentOwner),
-};
+    title: relationship.officerTitle ?? null,
+    isOfficer: toBoolean(relationship.isOfficer),
+    isDirector: toBoolean(relationship.isDirector),
+    isTenPercentOwner: toBoolean(relationship.isTenPercentOwner),
+  };
 
   const periodOfReport = document.periodOfReport;
 
@@ -157,26 +166,23 @@ export function parseForm4Xml(xml: string): ParsedFiling {
     document.derivativeTable?.derivativeTransaction ?? [];
 
   const mappedDerivativeTransactions = derivativeTransactions.map(
-    (transaction: any) => 
+    (transaction: any) =>
       mapTransaction(
         transaction,
         true,
         document.footnotes?.footnote ?? [],
         document.aff10b5One,
       ),
-    
   );
   const mappedNonDerivativeTransactions = nonDerivativeTransactions.map(
-    (transaction: any) => 
+    (transaction: any) =>
       mapTransaction(
         transaction,
         false,
         document.footnotes?.footnote ?? [],
         document.aff10b5One,
       ),
-    
   );
-
 
   return {
     company,

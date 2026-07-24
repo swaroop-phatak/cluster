@@ -28,3 +28,18 @@ export async function upsertFiling(filing: FilingInput): Promise<Filing> {
     },
   });
 }
+
+export async function filingExists(
+  accessionNumber: string,
+): Promise<boolean> {
+  const filing = await prisma.filing.findUnique({
+    where: {
+      accessionNumber,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  return filing !== null;
+}

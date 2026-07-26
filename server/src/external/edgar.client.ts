@@ -124,12 +124,15 @@ export async function fetchRecentForm4Filings(): Promise<EdgarFiling[]> {
     const fileName = row[4]!;
 
     const accessionNumber = fileName.split("/").pop()!.replace(".txt", "");
+    const rawDate = row[3]!;
+    const filingDate = `${rawDate.slice(0, 4)}-${rawDate.slice(4, 6)}-${rawDate.slice(6, 8)}`;
+
 
     return {
       formType: row[0]!,
       companyName: row[1]!,
       cik: row[2]!,
-      filingDate: row[3]!,
+      filingDate,
       fileName,
       accessionNumber,
     };

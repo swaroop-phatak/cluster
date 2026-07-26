@@ -7,6 +7,7 @@ import { ingestionQueue } from "./jobs/queues";
 import { registerIngestionPolling } from "./jobs/ingestion.job";
 import { fetchRecentForm4Filings } from "./external/edgar.client";
 import { filingExists } from "./repositories/filing.repository";
+import { processParseFilingJob } from "./jobs/parse-filing.job";
 
 const worker = new Worker(
   "ingestion",
@@ -17,26 +18,56 @@ const worker = new Worker(
 
         const filings = await fetchRecentForm4Filings();
 
-        console.log(`Found ${filings.length} filings`);
+        // console.log(`Found ${filings.length} filings`);
+
+        let skipped = 0;
+        let queued = 0;
 
         for (const filing of filings) {
           const exists = await filingExists(filing.accessionNumber);
 
           if (exists) {
+            skipped++;
             continue;
           }
 
-          await ingestionQueue.add("parse-filing", {
-            accessionNumber: filing.accessionNumber,
-            cik: filing.cik,
-          });
+          queued++;
+
+          await ingestionQueue.add(
+            "parse-filing",
+            {
+              accessionNumber: filing.accessionNumber,
+              cik: filing.cik,
+              filingDate: filing.filingDate,
+            },
+            {
+              attempts: 3,
+              backoff: {
+                type: "exponential",
+                delay: 5000,
+              },
+            },
+          );
         }
+        console.log({
+          found: filings.length,
+          skipped,
+          queued,
+        });
         break;
       }
 
       case "parse-filing": {
         console.log("Received parse-filing job");
-        console.log(job.data);
+        console.log("Job data:", job.data);
+
+        try {
+          await processParseFilingJob(job.data);
+          console.log(`Finished ${job.data.accessionNumber}`);
+        } catch (err) {
+          console.error(err);
+          throw err;
+        }
 
         break;
       }

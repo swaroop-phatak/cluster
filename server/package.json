@@ -14,7 +14,9 @@
     "test:batch-inspector": "tsx src/scripts/test-batch-inspector.ts",
     "test:ingest-filing": "tsx src/scripts/test-ingest-filing.ts",
     "build": "tsc -p tsconfig.build.json",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "worker" : "tsx src/worker.ts",
+    "test-poll" : "tsx src/scripts/test-poll.ts"
   },
   "keywords": [],
   "author": "",

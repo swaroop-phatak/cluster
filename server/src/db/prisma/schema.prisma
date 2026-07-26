@@ -116,7 +116,7 @@ model Transaction{
   transactionDate DateTime @map("transaction_date")
   shares Decimal
   pricePerShare Decimal? @map("price_per_share")
-  sharesOwnedAfter Decimal @map("shares_owned_after")
+  sharesOwnedAfter Decimal? @map("shares_owned_after")
   totalValue Decimal? @map("total_value")
   isDerivative Boolean @map("is_derivative")
   is10b51 Boolean @default(false) @map("is_10b5_1")

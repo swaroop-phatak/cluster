@@ -20,7 +20,7 @@ interface ParsedTransaction {
   shares: number;
   pricePerShare: number | null;
   totalValue: number | null;
-  sharesOwnedAfter: number;
+  sharesOwnedAfter: number| null;
   isDerivative: boolean;
   directOrIndirect: string;
   is10b51: boolean;
@@ -40,6 +40,7 @@ const parser = new XMLParser({
       "derivativeTransaction",
       "derivativeHolding",
       "footnote",
+      "reportingOwner",
     ].includes(name);
   },
 });
@@ -118,7 +119,11 @@ function mapTransaction(
     totalValue,
 
     sharesOwnedAfter:
-      transaction.postTransactionAmounts.sharesOwnedFollowingTransaction.value,
+      transaction.postTransactionAmounts.sharesOwnedFollowingTransaction
+        ?.value ??
+      transaction.postTransactionAmounts.valueOwnedFollowingTransaction
+        ?.value ??
+      null,
 
     directOrIndirect:
       transaction.ownershipNature.directOrIndirectOwnership.value,
@@ -143,12 +148,23 @@ export function parseForm4Xml(xml: string): ParsedFiling {
     ticker: document.issuer.issuerTradingSymbol,
   };
 
+  const reportingOwners = document.reportingOwner;
+
+  if (reportingOwners.length > 1) {
+    console.warn(
+      `Filing has ${reportingOwners.length} reporting owners; only the first is being extracted. ` +
+        `Additional owners are preserved in raw_payload but not persisted as separate records.`,
+    );
+  }
+
+  const primaryOwner = reportingOwners[0];
+
   const insider = {
-    cik: document.reportingOwner.reportingOwnerId.rptOwnerCik,
-    name: document.reportingOwner.reportingOwnerId.rptOwnerName,
+    cik: primaryOwner.reportingOwnerId.rptOwnerCik,
+    name: primaryOwner.reportingOwnerId.rptOwnerName,
   };
 
-  const relationship = document.reportingOwner.reportingOwnerRelationship;
+  const relationship = primaryOwner.reportingOwnerRelationship;
 
   const role = {
     title: relationship.officerTitle ?? null,

@@ -6,7 +6,7 @@ interface TransactionInput {
   transactionDate: Date;
   shares: number;
   pricePerShare: number | null;
-  sharesOwnedAfter: number;
+  sharesOwnedAfter: number | null;
   totalValue: number | null;
   isDerivative: boolean;
   is10b51: boolean;
@@ -32,7 +32,10 @@ export async function upsertTransactionsForFiling(
           transaction.pricePerShare !== null
             ? new Prisma.Decimal(transaction.pricePerShare)
             : null,
-        sharesOwnedAfter: new Prisma.Decimal(transaction.sharesOwnedAfter),
+        sharesOwnedAfter:
+          transaction.sharesOwnedAfter !== null
+            ? new Prisma.Decimal(transaction.sharesOwnedAfter)
+            : null,
         totalValue:
           transaction.totalValue !== null
             ? new Prisma.Decimal(transaction.totalValue)

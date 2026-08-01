@@ -1,7 +1,8 @@
 import { findClusterCandidates } from "../repositories/cluster.repository";
+import { prisma } from "../db/client";
 
 async function main() {
-  const rows = await findClusterCandidates();
+  const rows = await findClusterCandidates(prisma);
 
   console.log(rows);
 

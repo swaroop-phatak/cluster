@@ -1,4 +1,4 @@
-import { prisma } from "../db/client";
+import { PrismaClient } from "../generated/prisma/client";
 
 type ClusterCandidate = {
   id: string;
@@ -12,7 +12,8 @@ type ClusterCandidate = {
   window_end: Date;
 };
 
-export async function findClusterCandidates(windowDays: number = 30) {
+export async function findClusterCandidates(prisma: PrismaClient,
+  windowDays: number = 30) {
   return prisma.$queryRaw<ClusterCandidate[]>`
     WITH qualifying_transactions AS (
         SELECT

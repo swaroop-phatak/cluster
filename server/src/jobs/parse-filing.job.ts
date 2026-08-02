@@ -6,6 +6,7 @@ import { Prisma } from "../generated/prisma/client";
 import { upsertCompany } from "../repositories/company.repository";
 import { upsertFiling } from "../repositories/filing.repository";
 import { upsertInsider } from "../repositories/insider.repository";
+import { upsertInsiderRole } from "../repositories/insiderRole.repository";
 import { upsertTransactionsForFiling } from "../repositories/transaction.repository";
 import { parseForm4Xml } from "../services/filing-parser.service";
 import { parseFormDate } from "../utils/date.util";
@@ -62,7 +63,6 @@ export async function processParseFilingJob(
     name: parsed.insider.name,
   });
 
-
   const filingDate = parseFormDate(data.filingDate);
 
   console.log("7. Saving filing");
@@ -85,5 +85,13 @@ export async function processParseFilingJob(
 
   await upsertTransactionsForFiling(filing.id, transactionsForDb);
 
+  const insiderRole = await upsertInsiderRole({
+    insiderId: insider.id,
+    companyId: company.id,
+    title: parsed.role.title,
+    isOfficer: parsed.role.isOfficer,
+    isDirector: parsed.role.isDirector,
+    isTenPercentOwner: parsed.role.isTenPercentOwner,
+  });
   console.log("9. Job complete");
 }

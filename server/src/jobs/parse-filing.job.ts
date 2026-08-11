@@ -1,3 +1,4 @@
+import { prisma } from "../db/client";
 import {
   buildFilingUrl,
   fetchPrimaryDocumentFilename,
@@ -10,6 +11,7 @@ import { upsertInsiderRole } from "../repositories/insiderRole.repository";
 import { upsertTransactionsForFiling } from "../repositories/transaction.repository";
 import { parseForm4Xml } from "../services/filing-parser.service";
 import { parseFormDate } from "../utils/date.util";
+import { evaluateClusterJob } from "./evaluate-cluster.job";
 
 export interface ParseFilingJobData {
   accessionNumber: string;
@@ -84,8 +86,9 @@ export async function processParseFilingJob(
   }));
 
   await upsertTransactionsForFiling(filing.id, transactionsForDb);
+  
 
-  const insiderRole = await upsertInsiderRole({
+  await upsertInsiderRole({
     insiderId: insider.id,
     companyId: company.id,
     title: parsed.role.title,
@@ -93,5 +96,8 @@ export async function processParseFilingJob(
     isDirector: parsed.role.isDirector,
     isTenPercentOwner: parsed.role.isTenPercentOwner,
   });
+
+  await evaluateClusterJob(prisma, company.id);
+
   console.log("9. Job complete");
 }

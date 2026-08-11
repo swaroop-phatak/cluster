@@ -3,10 +3,10 @@
 interface ClusterMetrics {
   insiderCount: number;
   roleDiversity: number;
-  totalValue: number; // plain number; convert from Prisma.Decimal at the call site
+  totalValue: number; 
   windowStart: Date;
   windowEnd: Date;
-  windowDays: number; // the configured window size, e.g. 30 — used to normalize tightness
+  windowDays: number; 
 }
 
 interface ScoreBreakdown {

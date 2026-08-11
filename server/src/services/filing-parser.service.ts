@@ -17,10 +17,10 @@ interface ParsedTransaction {
   securityTitle: string;
   transactionDate: string;
   transactionCode: string;
-  shares: number;
+  shares: number | null;
   pricePerShare: number | null;
   totalValue: number | null;
-  sharesOwnedAfter: number| null;
+  sharesOwnedAfter: number | null;
   isDerivative: boolean;
   directOrIndirect: string;
   is10b51: boolean;
@@ -99,20 +99,28 @@ function mapTransaction(
   footnotes: Array<{ "@_id": string; "#text": string }>,
   documentLevelFlag: number | boolean | undefined,
 ): ParsedTransaction {
+  const shares =
+    transaction.transactionAmounts.transactionShares?.value ?? null;
+
   const pricePerShare =
     transaction.transactionAmounts.transactionPricePerShare?.value ?? null;
 
+  const explicitTotalValue =
+    transaction.transactionAmounts.transactionTotalValue?.value ?? null;
+
   const totalValue =
-    pricePerShare !== null
-      ? transaction.transactionAmounts.transactionShares.value * pricePerShare
-      : null;
+    explicitTotalValue !== null
+      ? explicitTotalValue
+      : shares !== null && pricePerShare !== null
+        ? shares * pricePerShare
+        : null;
 
   return {
     securityTitle: transaction.securityTitle.value,
     transactionDate: transaction.transactionDate.value,
     transactionCode: transaction.transactionCoding.transactionCode,
 
-    shares: transaction.transactionAmounts.transactionShares.value,
+    shares,
 
     pricePerShare,
 

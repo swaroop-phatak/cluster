@@ -4,7 +4,7 @@ import { Prisma } from "../generated/prisma/client";
 interface TransactionInput {
   transactionCode: string;
   transactionDate: Date;
-  shares: number;
+  shares: number | null;
   pricePerShare: number | null;
   sharesOwnedAfter: number | null;
   totalValue: number | null;
@@ -27,7 +27,10 @@ export async function upsertTransactionsForFiling(
         filingId,
         transactionCode: transaction.transactionCode,
         transactionDate: transaction.transactionDate,
-        shares: new Prisma.Decimal(transaction.shares),
+        shares:
+          transaction.shares !== null
+            ? new Prisma.Decimal(transaction.shares)
+            : null,
         pricePerShare:
           transaction.pricePerShare !== null
             ? new Prisma.Decimal(transaction.pricePerShare)

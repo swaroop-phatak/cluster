@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma/client";
+import { Prisma, PrismaClient } from "../generated/prisma/client";
 
 type ClusterCandidate = {
   id: string;
@@ -12,8 +12,14 @@ type ClusterCandidate = {
   window_end: Date;
 };
 
-export async function findClusterCandidates(prisma: PrismaClient,
-  windowDays: number = 30) {
+export async function findClusterCandidates(
+  prisma: PrismaClient,
+  windowDays: number = 30,
+  companyId?: string,
+) {
+  const companyFilter = companyId
+    ? Prisma.sql`AND f.company_id = ${companyId}`
+    : Prisma.empty;
   return prisma.$queryRaw<ClusterCandidate[]>`
     WITH qualifying_transactions AS (
         SELECT
@@ -31,6 +37,7 @@ export async function findClusterCandidates(prisma: PrismaClient,
             t.transaction_code = 'P'
             AND t.is_10b5_1 = FALSE
             AND t.is_derivative = FALSE
+            ${companyFilter}
     ),
 
     windowed AS (
@@ -99,5 +106,62 @@ export async function findClusterCandidates(prisma: PrismaClient,
     FROM windowed
     WHERE distinct_insiders_in_window >= 2
     ORDER BY company_id, transaction_date;
+  `;
+}
+
+export async function upsertCluster(
+  prisma: PrismaClient,
+  data: {
+    companyId: string;
+    windowStart: Date;
+    windowEnd: Date;
+    insiderCount: number;
+    totalValue: Prisma.Decimal;
+    score: Prisma.Decimal;
+  },
+) {
+  return prisma.cluster.upsert({
+    where: {
+      companyId_windowStart_windowEnd: {
+        companyId: data.companyId,
+        windowStart: data.windowStart,
+        windowEnd: data.windowEnd,
+      },
+    },
+    update: {
+      insiderCount: data.insiderCount,
+      totalValue: data.totalValue,
+      score: data.score,
+    },
+    create: data,
+  });
+}
+
+export async function getTransactionsInWindow(
+  prisma: PrismaClient,
+  companyId: string,
+  windowStart: Date,
+  windowEnd: Date,
+) {
+  return prisma.$queryRaw<
+    Array<{
+      id: string;
+      insider_id: string;
+      title: string | null;
+      total_value: Prisma.Decimal | null;
+    }>
+  >`
+    SELECT t.id, f.insider_id, ir.title, t.total_value
+    FROM transactions t
+    JOIN filings f ON t.filing_id = f.id
+    LEFT JOIN insider_roles ir
+    ON ir.insider_id = f.insider_id
+   AND ir.company_id = f.company_id
+    WHERE f.company_id = ${companyId}
+      AND t.transaction_code = 'P'
+      AND t.is_10b5_1 = FALSE
+      AND t.is_derivative = FALSE
+      AND t.transaction_date >= ${windowStart}
+      AND t.transaction_date <= ${windowEnd};
   `;
 }

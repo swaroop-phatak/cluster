@@ -19,3 +19,21 @@ export async function upsertInsider(insider: InsiderInput): Promise<Insider>{
         },
     });
 }
+
+export async function getInsiderProfile(insiderId: string) {
+  return prisma.insider.findUnique({
+    where: { id: insiderId },
+    include: {
+      roles: true,
+      filings: {
+        include: {
+          transactions: true,
+        },
+        orderBy: {
+          filingDate: "desc",
+        },
+        take: 20,
+      },
+    },
+  });
+}

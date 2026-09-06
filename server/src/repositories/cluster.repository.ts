@@ -1,4 +1,6 @@
 import { Prisma, PrismaClient } from "../generated/prisma/client";
+import { prisma } from "../db/client";
+import type { ClusterFilters } from "../types/cluster";
 
 type ClusterCandidate = {
   id: string;
@@ -164,4 +166,58 @@ export async function getTransactionsInWindow(
       AND t.transaction_date >= ${windowStart}
       AND t.transaction_date <= ${windowEnd};
   `;
+}
+
+export async function getClusterFeed(filters: ClusterFilters) {
+  const where = {
+    ...(filters.minScore !== undefined && {
+      score: { gte: filters.minScore },
+    }),
+    ...(filters.dateFrom && {
+      windowStart: { gte: filters.dateFrom },
+    }),
+    ...(filters.dateTo && {
+      windowEnd: { lte: filters.dateTo },
+    }),
+  };
+
+  const [data, total] = await Promise.all([
+    prisma.cluster.findMany({
+      where,
+      include: {
+        company: true,
+      },
+      orderBy:
+        filters.sortBy === "date"
+          ? { windowEnd: "desc" }
+          : { score: "desc" },
+      skip: (filters.page - 1) * filters.pageSize,
+      take: filters.pageSize,
+    }),
+
+    prisma.cluster.count({ where }),
+  ]);
+
+  return { data, total };
+}
+
+export async function getClusterDetail(clusterId: string) {
+  return prisma.cluster.findUnique({
+    where: { id: clusterId },
+    include: {
+      clusterTransactions: {
+        include: {
+          transaction: {
+            include: {
+              filing: {
+                include: {
+                  insider: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
 }

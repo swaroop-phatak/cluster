@@ -6,6 +6,7 @@ import {
   upsertCluster,
 } from "../repositories/cluster.repository";
 import { calculateClusterScore } from "../services/cluster.service";
+import { redisConnection } from "../cache/redis.client";
 
 interface Interval {
   start: Date;
@@ -87,6 +88,12 @@ export async function evaluateClusterJob(
       score: new Prisma.Decimal(scoreResult.score),
     });
 
+    const keys = await redisConnection.keys("clusters:feed:*");
+
+    if (keys.length) {
+      await redisConnection.del(...keys);
+    }
+    
     await prisma.clusterTransaction.createMany({
       data: rows.map((row) => ({
         clusterId: cluster.id,

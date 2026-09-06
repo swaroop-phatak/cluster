@@ -1,4 +1,7 @@
 // server/src/services/cluster.service.ts
+import { redisConnection } from "../cache/redis.client";
+import { getClusterFeed } from "../repositories/cluster.repository";
+import type { ClusterFilters } from "../types/cluster";
 
 interface ClusterMetrics {
   insiderCount: number;
@@ -74,4 +77,25 @@ export function calculateClusterScore(metrics: ClusterMetrics): ClusterScoreResu
       windowTightnessScore: Math.round(windowTightnessScore),
     },
   };
+}
+
+export async function getCachedClusterFeed(filters: ClusterFilters) {
+  const cacheKey = `clusters:feed:${JSON.stringify(filters)}`;
+
+  const cached = await redisConnection.get(cacheKey);
+
+  if (cached) {
+    return JSON.parse(cached);
+  }
+
+  const result = await getClusterFeed(filters);
+
+  await redisConnection.set(
+    cacheKey,
+    JSON.stringify(result),
+    "EX",
+    60,
+  );
+
+  return result;
 }

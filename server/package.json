@@ -19,7 +19,8 @@
     "worker": "tsx src/worker.ts",
     "test-poll": "tsx src/scripts/test-poll.ts",
     "test-cluster": "tsx src/scripts/test-clusters.ts",
-    "test:cluster-score": "tsx src/scripts/test-cluster-score.ts"
+    "test:cluster-score": "tsx src/scripts/test-cluster-score.ts",
+    "test:invalidation": "tsx src/scripts/test-invalidation.ts"
   },
   "keywords": [],
   "author": "",

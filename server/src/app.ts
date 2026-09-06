@@ -8,6 +8,7 @@ import authRoutes from "./api/routes/auth.routes";
 import { errorHandler } from "./api/middleware/errorHandler";
 import companyRoutes from "./api/routes/company.routes";
 import insiderRoutes from "./api/routes/insider.routes";
+import clusterRoutes from "./api/routes/cluster.routes";
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(cookieParser());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/companies", companyRoutes);
 app.use("/api/v1/insiders", insiderRoutes);
+app.use("/api/v1/clusters", clusterRoutes);
 
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });

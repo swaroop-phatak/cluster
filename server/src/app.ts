@@ -9,6 +9,7 @@ import { errorHandler } from "./api/middleware/errorHandler";
 import companyRoutes from "./api/routes/company.routes";
 import insiderRoutes from "./api/routes/insider.routes";
 import clusterRoutes from "./api/routes/cluster.routes";
+import watchlistRoutes from "./api/routes/watchlist.routes";
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/companies", companyRoutes);
 app.use("/api/v1/insiders", insiderRoutes);
 app.use("/api/v1/clusters", clusterRoutes);
+app.use("/api/v1/watchlists", watchlistRoutes);
 
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });

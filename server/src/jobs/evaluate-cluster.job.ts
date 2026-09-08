@@ -7,6 +7,8 @@ import {
 } from "../repositories/cluster.repository";
 import { calculateClusterScore } from "../services/cluster.service";
 import { redisConnection } from "../cache/redis.client";
+import { dispatchAlertJob } from "./dispatch-alert.job";
+const ALERT_SCORE_THRESHOLD = 70;
 
 interface Interval {
   start: Date;
@@ -87,6 +89,10 @@ export async function evaluateClusterJob(
       totalValue: new Prisma.Decimal(totalValue),
       score: new Prisma.Decimal(scoreResult.score),
     });
+
+    if (scoreResult.score >= ALERT_SCORE_THRESHOLD) {
+  await dispatchAlertJob(cluster.id);
+}
 
     const keys = await redisConnection.keys("clusters:feed:*");
 

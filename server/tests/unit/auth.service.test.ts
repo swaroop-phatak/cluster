@@ -33,6 +33,8 @@ const fakeUser = {
   role: "user" as const,
   refreshTokenVersion: 0,
   createdAt: new Date(),
+  emailAlertsEnabled: true,
+  minScoreThreshold: 50,
 };
 
 describe("registerUser", () => {

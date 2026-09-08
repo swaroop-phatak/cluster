@@ -41,6 +41,8 @@ model User{
   role Role @default(user)
   refreshTokenVersion Int @default(0) @map("refresh_token_version")
   createdAt DateTime @default(now()) @map("created_at")
+  emailAlertsEnabled Boolean @default(true) @map("email_alerts_enabled")
+  minScoreThreshold Int @default(50) @map("min_score_threshold")
 
   notifications Notification[]
   watchlists Watchlist[]

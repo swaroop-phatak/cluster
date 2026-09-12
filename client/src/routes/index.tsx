@@ -4,6 +4,7 @@ import { AppShell } from "../components/layout/AppShell";
 import { PublicOnlyRoute } from "./PublicOnlyRoute";
 import { LoginPage } from "../pages/LoginPage";
 import { RegisterPage } from "../pages/RegisterPage";
+import { ClusterFeedPage } from "../pages/ClusterFeedPage";
 
 function Placeholder({ name }: { name: string }) {
   return <div>{name}</div>;
@@ -15,7 +16,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/clusters",
-        element: <Placeholder name="Cluster Feed" />,
+        element: <ClusterFeedPage />,
       },
       {
         path: "/clusters/:id",

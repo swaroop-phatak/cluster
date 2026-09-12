@@ -5,6 +5,7 @@ import {
   login,
   refresh,
   logout,
+  me,
 } from "../controllers/auth.controller";
 import { loginSchema, registerSchema } from "../validators/auth.validator";
 import { validateRequest } from "../middleware/validateRequest";
@@ -27,6 +28,8 @@ router.post(
 );
 router.post("/refresh", refresh);
 router.post("/logout", authMiddleware, logout);
+
+router.get("/me", authMiddleware, me);
 
 
 export default router;

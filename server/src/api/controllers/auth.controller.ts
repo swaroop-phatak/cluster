@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { AuthError } from "../../lib/errors";
+import { AuthError, NotFoundError } from "../../lib/errors";
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -9,7 +9,7 @@ import {
   verifyRefreshToken,
   clearAuthCookies,
 } from "../../services/auth.service";
-import { incrementRefreshTokenVersion } from "../../repositories/user.repository";
+import { findUserById, incrementRefreshTokenVersion } from "../../repositories/user.repository";
 
 export async function register(
   req: Request,
@@ -115,6 +115,26 @@ export async function logout(
     clearAuthCookies(res);
 
     return res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function me(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const user = await findUserById(req.user!.id);
+
+    if (!user) {
+      throw new NotFoundError("User not found");
+    }
+
+    const { passwordHash: _, ...safeUser } = user;
+
+    return res.status(200).json({ user: safeUser });
   } catch (error) {
     next(error);
   }

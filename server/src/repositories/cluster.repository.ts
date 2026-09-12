@@ -170,16 +170,24 @@ export async function getTransactionsInWindow(
 
 export async function getClusterFeed(filters: ClusterFilters) {
   const where = {
-    ...(filters.minScore !== undefined && {
-      score: { gte: filters.minScore },
-    }),
-    ...(filters.dateFrom && {
-      windowStart: { gte: filters.dateFrom },
-    }),
-    ...(filters.dateTo && {
-      windowEnd: { lte: filters.dateTo },
-    }),
-  };
+  ...(filters.minScore !== undefined && {
+    score: { gte: filters.minScore }, 
+  }),
+
+  ...(filters.sector && {
+    company: {
+      sector: filters.sector,
+    },
+  }),
+
+  ...(filters.dateFrom && {
+    windowStart: { gte: filters.dateFrom },
+  }),
+
+  ...(filters.dateTo && {
+    windowEnd: { lte: filters.dateTo },
+  }),
+};
 
   const [data, total] = await Promise.all([
     prisma.cluster.findMany({

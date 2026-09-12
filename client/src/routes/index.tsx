@@ -5,6 +5,7 @@ import { PublicOnlyRoute } from "./PublicOnlyRoute";
 import { LoginPage } from "../pages/LoginPage";
 import { RegisterPage } from "../pages/RegisterPage";
 import { ClusterFeedPage } from "../pages/ClusterFeedPage";
+import { CompanyDashboardPage } from "../pages/CompanyDashboardPage";
 
 function Placeholder({ name }: { name: string }) {
   return <div>{name}</div>;
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/companies/:id",
-        element: <Placeholder name="Company Dashboard" />,
+        element: <CompanyDashboardPage />,
       },
       {
         path: "/insiders/:id",

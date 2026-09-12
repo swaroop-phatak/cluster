@@ -18,6 +18,20 @@ export async function getProfile(
       (filing) => filing.transactions,
     );
 
+    const purchases = transactionHistory.filter(
+      (transaction) => transaction.transactionCode === "P",
+    );
+
+    const avgPurchaseSize = purchases.length
+      ? purchases.reduce(
+          (sum, transaction) =>
+            sum + Number(transaction.totalValue ?? 0),
+          0,
+        ) / purchases.length
+      : 0;
+
+    const purchaseFrequency = purchases.length;
+
     return res.status(200).json({
       insider: {
         id: insider.id,
@@ -27,6 +41,10 @@ export async function getProfile(
       },
       roles: insider.roles,
       transactionHistory,
+      stats: {
+        avgPurchaseSize,
+        purchaseFrequency,
+      },
     });
   } catch (error) {
     next(error);

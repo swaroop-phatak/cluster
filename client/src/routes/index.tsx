@@ -6,6 +6,7 @@ import { LoginPage } from "../pages/LoginPage";
 import { RegisterPage } from "../pages/RegisterPage";
 import { ClusterFeedPage } from "../pages/ClusterFeedPage";
 import { CompanyDashboardPage } from "../pages/CompanyDashboardPage";
+import { InsiderProfilePage } from "../pages/InsiderProfilePage";
 
 function Placeholder({ name }: { name: string }) {
   return <div>{name}</div>;
@@ -29,7 +30,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/insiders/:id",
-        element: <Placeholder name="Insider Profile" />,
+        element: <InsiderProfilePage />,
       },
       {
         element: <PublicOnlyRoute />,

@@ -46,6 +46,10 @@ export async function getDetail(
 
     return res.status(200).json({
       cluster,
+      transactions: cluster.clusterTransactions.map(
+        (item) => item.transaction,
+      ),
+      scoreBreakdown: cluster.scoreBreakdown,
     });
   } catch (error) {
     next(error);

@@ -88,6 +88,7 @@ export async function evaluateClusterJob(
       insiderCount,
       totalValue: new Prisma.Decimal(totalValue),
       score: new Prisma.Decimal(scoreResult.score),
+      scoreBreakdown: JSON.parse(JSON.stringify(scoreResult.breakdown)),
     });
 
     if (scoreResult.score >= ALERT_SCORE_THRESHOLD) {

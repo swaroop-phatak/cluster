@@ -44,3 +44,30 @@ export async function incrementRefreshTokenVersion(userId: string) {
     },
   });
 }
+
+export async function getNotificationPreferences(userId: string) {
+  return prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      emailAlertsEnabled: true,
+      minScoreThreshold: true,
+    },
+  });
+}
+
+export async function updateNotificationPreferences(
+  userId: string,
+  data: {
+    emailAlertsEnabled?: boolean;
+    minScoreThreshold?: number;
+  },
+) {
+  return prisma.user.update({
+    where: { id: userId },
+    data,
+    select: {
+      emailAlertsEnabled: true,
+      minScoreThreshold: true,
+    },
+  });
+}

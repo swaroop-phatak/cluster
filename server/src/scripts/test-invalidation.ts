@@ -6,7 +6,7 @@ import { evaluateClusterJob } from "../jobs/evaluate-cluster.job";
 async function main() {
   // pick a real companyId from your DB that already has a cluster —
   // grab one from Prisma Studio's `clusters` table, copy its `companyId`
-  const companyId = "f8f4906e-db55-432c-be39-54e22eed9c6d";
+  const companyId = "a7141ebd-a202-4633-a675-0de536a2d5b8";
 
   console.log("Running evaluateClusterJob for", companyId);
   await evaluateClusterJob(prisma, companyId);

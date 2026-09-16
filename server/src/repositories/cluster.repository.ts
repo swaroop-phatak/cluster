@@ -120,6 +120,7 @@ export async function upsertCluster(
     insiderCount: number;
     totalValue: Prisma.Decimal;
     score: Prisma.Decimal;
+    scoreBreakdown?: Prisma.InputJsonValue;
   },
 ) {
   return prisma.cluster.upsert({
@@ -134,6 +135,9 @@ export async function upsertCluster(
       insiderCount: data.insiderCount,
       totalValue: data.totalValue,
       score: data.score,
+      ...(data.scoreBreakdown !== undefined && {
+        scoreBreakdown: data.scoreBreakdown,
+      }),
     },
     create: data,
   });
@@ -170,24 +174,24 @@ export async function getTransactionsInWindow(
 
 export async function getClusterFeed(filters: ClusterFilters) {
   const where = {
-  ...(filters.minScore !== undefined && {
-    score: { gte: filters.minScore }, 
-  }),
+    ...(filters.minScore !== undefined && {
+      score: { gte: filters.minScore },
+    }),
 
-  ...(filters.sector && {
-    company: {
-      sector: filters.sector,
-    },
-  }),
+    ...(filters.sector && {
+      company: {
+        sector: filters.sector,
+      },
+    }),
 
-  ...(filters.dateFrom && {
-    windowStart: { gte: filters.dateFrom },
-  }),
+    ...(filters.dateFrom && {
+      windowStart: { gte: filters.dateFrom },
+    }),
 
-  ...(filters.dateTo && {
-    windowEnd: { lte: filters.dateTo },
-  }),
-};
+    ...(filters.dateTo && {
+      windowEnd: { lte: filters.dateTo },
+    }),
+  };
 
   const [data, total] = await Promise.all([
     prisma.cluster.findMany({
@@ -196,9 +200,7 @@ export async function getClusterFeed(filters: ClusterFilters) {
         company: true,
       },
       orderBy:
-        filters.sortBy === "date"
-          ? { windowEnd: "desc" }
-          : { score: "desc" },
+        filters.sortBy === "date" ? { windowEnd: "desc" } : { score: "desc" },
       skip: (filters.page - 1) * filters.pageSize,
       take: filters.pageSize,
     }),
@@ -213,6 +215,7 @@ export async function getClusterDetail(clusterId: string) {
   return prisma.cluster.findUnique({
     where: { id: clusterId },
     include: {
+      company: true,
       clusterTransactions: {
         include: {
           transaction: {

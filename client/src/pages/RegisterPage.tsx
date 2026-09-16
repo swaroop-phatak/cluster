@@ -26,34 +26,60 @@ export function RegisterPage() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Name"
-        required
-      />
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label htmlFor="name" className="mb-2 block text-sm font-medium">
+          Name
+        </label>
 
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        required
-      />
+        <input
+          id="name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="w-full rounded-lg border px-3 py-2"
+        />
+      </div>
 
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
+      <div>
+        <label htmlFor="email" className="mb-2 block text-sm font-medium">
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="w-full rounded-lg border px-3 py-2"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="password" className="mb-2 block text-sm font-medium">
+          Password
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="w-full rounded-lg border px-3 py-2"
+        />
+      </div>
 
       {error && <p>{error}</p>}
 
-      <button type="submit">Create account</button>
+      <button
+        type="submit"
+        className="w-full rounded-lg bg-black px-4 py-2 font-medium text-white hover:opacity-90"
+      >
+        Register
+      </button>
     </form>
   );
 }

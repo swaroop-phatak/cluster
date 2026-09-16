@@ -10,6 +10,10 @@ import {
 import { loginSchema, registerSchema } from "../validators/auth.validator";
 import { validateRequest } from "../middleware/validateRequest";
 import { authMiddleware } from "../middleware/authMiddleware";
+import {
+  getNotificationPreferencesController,
+  updateNotificationPreferencesController,
+} from "../controllers/auth.controller";
 
 const router = Router();
 
@@ -30,6 +34,18 @@ router.post("/refresh", refresh);
 router.post("/logout", authMiddleware, logout);
 
 router.get("/me", authMiddleware, me);
+
+router.get(
+  "/me/notification-preferences",
+  authMiddleware,
+  getNotificationPreferencesController,
+);
+
+router.patch(
+  "/me/notification-preferences",
+  authMiddleware,
+  updateNotificationPreferencesController,
+);
 
 
 export default router;

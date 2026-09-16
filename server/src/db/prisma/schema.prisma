@@ -145,6 +145,7 @@ model Cluster{
   insiderCount Int @map("insider_count")
   totalValue Decimal @map("total_value")
   score Decimal
+  scoreBreakdown Json? @map("score_breakdown")
   status ClusterStatus @default(active)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

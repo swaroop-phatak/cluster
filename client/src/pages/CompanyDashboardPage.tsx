@@ -93,7 +93,11 @@ export function CompanyDashboardPage() {
                 </p>
               ) : (
                 currentInsiders.map((insider) => (
-                  <div key={insider.id} className="rounded-lg border p-3">
+                  <Link
+                    key={insider.id}
+                    to={`/insiders/${insider.id}`}
+                    className="block rounded-lg border p-3 hover:bg-gray-50"
+                  >
                     <p className="font-medium">{insider.name}</p>
 
                     {insider.cik && (
@@ -101,7 +105,7 @@ export function CompanyDashboardPage() {
                         CIK: {insider.cik}
                       </p>
                     )}
-                  </div>
+                  </Link>
                 ))
               )}
             </div>

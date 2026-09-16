@@ -7,10 +7,10 @@ import { RegisterPage } from "../pages/RegisterPage";
 import { ClusterFeedPage } from "../pages/ClusterFeedPage";
 import { CompanyDashboardPage } from "../pages/CompanyDashboardPage";
 import { InsiderProfilePage } from "../pages/InsiderProfilePage";
+import { WatchlistPage } from "../pages/WatchlistPage";
+import { NotificationSettingsPage } from "../pages/NotificationSettingsPage";
+import { ClusterDetailPage } from "../pages/ClusterDetailPage";
 
-function Placeholder({ name }: { name: string }) {
-  return <div>{name}</div>;
-}
 
 export const router = createBrowserRouter([
   {
@@ -20,10 +20,8 @@ export const router = createBrowserRouter([
         path: "/clusters",
         element: <ClusterFeedPage />,
       },
-      {
-        path: "/clusters/:id",
-        element: <Placeholder name="Cluster Detail" />,
-      },
+      { path: "/clusters/:id", 
+        element: <ClusterDetailPage /> },
       {
         path: "/companies/:id",
         element: <CompanyDashboardPage />,
@@ -48,13 +46,10 @@ export const router = createBrowserRouter([
       {
         element: <ProtectedRoute />,
         children: [
-          {
-            path: "/watchlist",
-            element: <Placeholder name="Watchlist" />,
-          },
+          { path: "/watchlist", element: <WatchlistPage /> },
           {
             path: "/settings/notifications",
-            element: <Placeholder name="Notification Settings" />,
+            element: <NotificationSettingsPage />,
           },
         ],
       },

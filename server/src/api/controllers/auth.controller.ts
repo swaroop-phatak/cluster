@@ -9,7 +9,7 @@ import {
   verifyRefreshToken,
   clearAuthCookies,
 } from "../../services/auth.service";
-import { findUserById, incrementRefreshTokenVersion } from "../../repositories/user.repository";
+import { findUserById, incrementRefreshTokenVersion,getNotificationPreferences,updateNotificationPreferences } from "../../repositories/user.repository";
 
 export async function register(
   req: Request,
@@ -135,6 +135,48 @@ export async function me(
     const { passwordHash: _, ...safeUser } = user;
 
     return res.status(200).json({ user: safeUser });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getNotificationPreferencesController(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const preferences = await getNotificationPreferences(req.user!.id);
+
+    if (!preferences) {
+      throw new NotFoundError("User not found");
+    }
+
+    return res.status(200).json({ preferences });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function updateNotificationPreferencesController(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const preferences = await updateNotificationPreferences(
+      req.user!.id,
+      {
+        ...(req.body.emailAlertsEnabled !== undefined && {
+          emailAlertsEnabled: req.body.emailAlertsEnabled,
+        }),
+        ...(req.body.minScoreThreshold !== undefined && {
+          minScoreThreshold: req.body.minScoreThreshold,
+        }),
+      },
+    );
+
+    return res.status(200).json({ preferences });
   } catch (error) {
     next(error);
   }

@@ -4,7 +4,7 @@ import { Prisma } from "../generated/prisma/client";
 import {
   createUser,
   findUserByEmail,
-  findUserById
+  findUserById,
 } from "../repositories/user.repository";
 import { AuthError, ConflictError } from "../lib/errors";
 import jwt from "jsonwebtoken";
@@ -47,10 +47,7 @@ export async function loginUser(email: string, password: string) {
     throw new AuthError("Invalid email or password");
   }
 
-  const passwordMatches = await bcrypt.compare(
-    password,
-    user.passwordHash,
-  );
+  const passwordMatches = await bcrypt.compare(password, user.passwordHash);
 
   if (!passwordMatches) {
     throw new AuthError("Invalid email or password");
@@ -62,13 +59,9 @@ export async function loginUser(email: string, password: string) {
 }
 
 export function generateAccessToken(userId: string): string {
-  return jwt.sign(
-    { sub: userId },
-    process.env.JWT_ACCESS_SECRET as string,
-    {
-      expiresIn: "15m",
-    },
-  );
+  return jwt.sign({ sub: userId }, process.env.JWT_ACCESS_SECRET as string, {
+    expiresIn: "15m",
+  });
 }
 
 export function generateRefreshToken(
@@ -89,10 +82,7 @@ export function generateRefreshToken(
 
 export async function verifyRefreshToken(token: string) {
   try {
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_REFRESH_SECRET as string,
-    );
+    const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET as string);
 
     if (typeof decoded === "string") {
       throw new AuthError("Invalid refresh token");
@@ -101,10 +91,7 @@ export async function verifyRefreshToken(token: string) {
     const userId = decoded.sub;
     const tokenVersion = decoded.version;
 
-    if (
-      typeof userId !== "string" ||
-      typeof tokenVersion !== "number"
-    ) {
+    if (typeof userId !== "string" || typeof tokenVersion !== "number") {
       throw new AuthError("Invalid refresh token");
     }
 
@@ -137,15 +124,15 @@ export function setAuthCookies(
 
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
+    sameSite: isProd ? "none" : "strict",
     secure: isProd,
-    sameSite: "strict",
     maxAge: 15 * 60 * 1000,
   });
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
+    sameSite: isProd ? "none" : "strict",
     secure: isProd,
-    sameSite: "strict",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 }

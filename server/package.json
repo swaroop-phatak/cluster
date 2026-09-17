@@ -6,7 +6,7 @@
   "scripts": {
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand",
     "test:integration": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand tests/integration",
-    "dev": "ts-node-dev --respawn src/server.ts",
+    "dev": "tsx watch src/server.ts",
     "lint": "eslint .",
     "test:edgar": "tsx src/scripts/test-edgar.ts",
     "test:parse": "tsx src/scripts/test-xml-parser.ts",

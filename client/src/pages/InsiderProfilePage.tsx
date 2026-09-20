@@ -10,9 +10,9 @@ export function InsiderProfilePage() {
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-64 animate-pulse rounded bg-gray-200" />
-        <div className="h-32 animate-pulse rounded-xl bg-gray-200" />
-        <div className="h-64 animate-pulse rounded-xl bg-gray-200" />
+        <div className="h-8 w-64 animate-pulse border-2 border-black bg-neutral-100" />
+        <div className="h-32 animate-pulse border-2 border-black bg-neutral-100" />
+        <div className="h-64 animate-pulse border-2 border-black bg-neutral-100" />
       </div>
     );
   }
@@ -25,20 +25,29 @@ export function InsiderProfilePage() {
     if (status === 404) {
       return (
         <div className="space-y-4">
-          <h1 className="text-2xl font-bold">Insider not found</h1>
+          <h1 className="text-3xl font-black uppercase tracking-tight">
+            Insider not found
+          </h1>
+
           <Link
             to="/clusters"
-            className="text-sm font-medium underline"
+            className="inline-block text-sm font-bold uppercase tracking-wide underline decoration-2 underline-offset-2"
           >
-            Back to clusters
+            ← Back to clusters
           </Link>
         </div>
       );
     }
 
     return (
-      <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-red-700">
-        Failed to load insider profile.
+      <div className="border-2 border-red-600 bg-white p-6 shadow-[4px_4px_0_#dc2626]">
+        <h1 className="font-bold uppercase tracking-wide text-red-700">
+          Failed to load insider profile
+        </h1>
+
+        <p className="mt-1 text-sm text-red-600">
+          Please try again later.
+        </p>
       </div>
     );
   }
@@ -51,46 +60,54 @@ export function InsiderProfilePage() {
     <div className="space-y-6">
       <Link
         to="/clusters"
-        className="text-sm font-medium text-gray-600 hover:text-gray-900"
+        className="inline-block text-sm font-bold uppercase tracking-wide underline decoration-2 underline-offset-2 transition-transform hover:-translate-x-0.5"
       >
         ← Back to clusters
       </Link>
 
-      <section className="rounded-xl border bg-white p-6 shadow-sm">
+      {/* Insider Summary */}
+      <section className="border-2 border-black bg-white p-6 shadow-[5px_5px_0_#000]">
         <div>
-          <h1 className="text-2xl font-bold">{insider.name}</h1>
+          <h1 className="text-3xl font-black uppercase tracking-tight">
+            {insider.name}
+          </h1>
 
-          <div className="mt-2 flex flex-wrap gap-3 text-sm text-gray-500">
+          <div className="mt-2 flex flex-wrap gap-3 text-xs font-bold uppercase tracking-wide text-neutral-500">
             <span>CIK: {insider.cik}</span>
           </div>
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-lg bg-gray-50 p-4">
-            <p className="text-sm text-gray-500">
+          <div className="border-2 border-black bg-neutral-50 p-4">
+            <p className="text-xs font-bold uppercase tracking-wide text-neutral-500">
               Average Purchase Size
             </p>
-            <p className="mt-1 text-xl font-semibold">
+
+            <p className="mt-1 text-xl font-black">
               ${stats.avgPurchaseSize.toLocaleString()}
             </p>
           </div>
 
-          <div className="rounded-lg bg-gray-50 p-4">
-            <p className="text-sm text-gray-500">
+          <div className="border-2 border-black bg-neutral-50 p-4">
+            <p className="text-xs font-bold uppercase tracking-wide text-neutral-500">
               Purchase Frequency
             </p>
-            <p className="mt-1 text-xl font-semibold">
+
+            <p className="mt-1 text-xl font-black">
               {stats.purchaseFrequency}
             </p>
           </div>
         </div>
       </section>
 
-      <section className="rounded-xl border bg-white p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-semibold">Roles</h2>
+      {/* Roles */}
+      <section className="border-2 border-black bg-white p-6 shadow-[4px_4px_0_#000]">
+        <h2 className="mb-5 text-lg font-black uppercase tracking-tight">
+          Roles
+        </h2>
 
         {roles.length === 0 ? (
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-neutral-500">
             No roles found.
           </p>
         ) : (
@@ -98,9 +115,9 @@ export function InsiderProfilePage() {
             {roles.map((role) => (
               <div
                 key={role.id}
-                className="rounded-lg border p-4"
+                className="border-2 border-black p-4 transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-neutral-50 hover:shadow-[3px_3px_0_#000]"
               >
-                <p className="font-medium">
+                <p className="font-bold">
                   {role.title ||
                     [
                       role.isDirector && "Director",
@@ -112,8 +129,8 @@ export function InsiderProfilePage() {
                     "Role not specified"}
                 </p>
 
-                <p className="mt-1 text-sm text-gray-500">
-                  Company ID: {role.companyId}
+                <p className="mt-1 text-sm font-medium text-neutral-500">
+                  Company: {role.company.name}
                 </p>
               </div>
             ))}
@@ -121,8 +138,9 @@ export function InsiderProfilePage() {
         )}
       </section>
 
+      {/* Transaction History */}
       <section>
-        <h2 className="mb-4 text-lg font-semibold">
+        <h2 className="mb-4 text-lg font-black uppercase tracking-tight">
           Transaction History
         </h2>
 

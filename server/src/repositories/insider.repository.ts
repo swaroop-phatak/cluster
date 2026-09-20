@@ -6,9 +6,7 @@ interface InsiderInput {
   name: string;
 }
 
-export async function upsertInsider(
-  insider: InsiderInput,
-): Promise<Insider> {
+export async function upsertInsider(insider: InsiderInput): Promise<Insider> {
   return prisma.insider.upsert({
     where: { cik: insider.cik },
     update: {
@@ -25,7 +23,15 @@ export async function getInsiderProfile(insiderId: string) {
   return prisma.insider.findUnique({
     where: { id: insiderId },
     include: {
-      roles: true,
+      roles: {
+        include: {
+          company: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
       filings: {
         include: {
           transactions: true,

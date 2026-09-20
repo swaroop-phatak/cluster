@@ -12,7 +12,10 @@ export interface Company {
 export interface Insider {
   id: string;
   name: string;
-  cik: string | null;
+  cik: string;
+  roles: {
+    title: string | null;
+  }[];
 }
 
 export interface Transaction {

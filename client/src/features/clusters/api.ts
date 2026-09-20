@@ -56,6 +56,10 @@ export interface ClusterDetailTransaction {
       id: string;
       name: string;
       cik: string;
+      roles: {
+        title: string | null;
+        companyId: string;
+      }[];
     };
   };
 }

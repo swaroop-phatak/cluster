@@ -13,26 +13,29 @@ export function Pagination({
     return null;
   }
 
+  const isFirstPage = page === 1;
+  const isLastPage = page === totalPages;
+
   return (
-    <div className="mt-6 flex items-center justify-center gap-4">
+    <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
       <button
         type="button"
-        disabled={page === 1}
+        disabled={isFirstPage}
         onClick={() => onPageChange(page - 1)}
-        className="rounded-lg border px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
+        className="border-2 border-black bg-white px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#000] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-none"
       >
         Previous
       </button>
 
-      <span className="text-sm text-gray-600">
+      <span className="border-2 border-black bg-black px-4 py-2 text-xs font-bold uppercase tracking-wide text-white">
         Page {page} of {totalPages}
       </span>
 
       <button
         type="button"
-        disabled={page === totalPages}
+        disabled={isLastPage}
         onClick={() => onPageChange(page + 1)}
-        className="rounded-lg border px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
+        className="border-2 border-black bg-white px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#000] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-none"
       >
         Next
       </button>

@@ -26,17 +26,19 @@ export function NotificationSettingsPage() {
 
   if (isLoading) {
     return (
-      <div className="space-y-4">
-        <div className="h-8 w-64 animate-pulse rounded bg-gray-200" />
-        <div className="h-48 animate-pulse rounded-xl bg-gray-200" />
+      <div className="max-w-2xl space-y-4">
+        <div className="h-8 w-64 animate-pulse border-2 border-black bg-neutral-100" />
+        <div className="h-56 animate-pulse border-2 border-black bg-neutral-100" />
       </div>
     );
   }
 
   if (isError) {
     return (
-      <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-red-700">
-        Failed to load notification settings.
+      <div className="max-w-2xl border-2 border-red-600 bg-white p-6 shadow-[4px_4px_0_#dc2626]">
+        <p className="font-bold uppercase tracking-wide text-red-700">
+          Failed to load notification settings.
+        </p>
       </div>
     );
   }
@@ -60,21 +62,23 @@ export function NotificationSettingsPage() {
   return (
     <div className="max-w-2xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-3xl font-black uppercase tracking-tight">
           Notification Settings
         </h1>
 
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-2 text-sm font-medium text-neutral-500">
           Control when Cluster sends you email alerts.
         </p>
       </div>
 
-      <section className="rounded-xl border bg-white p-6 shadow-sm">
-        <div className="flex items-center justify-between gap-6">
+      <section className="border-2 border-black bg-white p-6 shadow-[5px_5px_0_#000]">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="font-semibold">Email Alerts</h2>
+            <h2 className="font-black uppercase tracking-tight">
+              Email Alerts
+            </h2>
 
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-2 max-w-lg text-sm leading-6 text-neutral-500">
               Receive email notifications for qualifying
               insider trading clusters.
             </p>
@@ -88,26 +92,30 @@ export function NotificationSettingsPage() {
               updateEmailAlerts(!emailAlertsEnabled)
             }
             disabled={updateMutation.isPending}
-            className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-gray-50 disabled:opacity-50"
+            className={`shrink-0 border-2 border-black px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all ${
+              emailAlertsEnabled
+                ? "bg-black text-white hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-neutral-800 hover:shadow-[3px_3px_0_#000]"
+                : "bg-white text-black hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#000]"
+            } disabled:cursor-not-allowed disabled:opacity-50`}
           >
             {emailAlertsEnabled ? "Enabled" : "Disabled"}
           </button>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 border-t-2 border-black pt-6">
           <label
             htmlFor="score-threshold"
-            className="block text-sm font-medium"
+            className="block text-sm font-black uppercase tracking-wide"
           >
             Minimum Cluster Score
           </label>
 
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-2 text-sm leading-6 text-neutral-500">
             Only receive alerts for clusters at or above
             this score.
           </p>
 
-          <div className="mt-4 flex items-center gap-4">
+          <div className="mt-5 flex items-center gap-4">
             <input
               id="score-threshold"
               type="range"
@@ -119,25 +127,34 @@ export function NotificationSettingsPage() {
                   Number(event.target.value),
                 )
               }
-              className="w-full"
+              className="h-2 w-full cursor-pointer accent-black"
             />
 
-            <span className="w-10 text-right font-semibold">
+            <span className="flex h-10 w-12 shrink-0 items-center justify-center border-2 border-black bg-black text-sm font-black text-white">
               {minScoreThreshold}
             </span>
+          </div>
+
+          <div className="mt-2 flex justify-between text-[10px] font-bold uppercase tracking-wide text-neutral-400">
+            <span>0</span>
+            <span>100</span>
           </div>
         </div>
 
         {updateMutation.isSuccess && (
-          <p className="mt-4 text-sm text-gray-500">
-            Settings saved.
-          </p>
+          <div className="mt-6 border-2 border-black bg-neutral-50 p-3">
+            <p className="text-xs font-bold uppercase tracking-wide">
+              ✓ Settings saved.
+            </p>
+          </div>
         )}
 
         {updateMutation.isError && (
-          <p className="mt-4 text-sm text-red-600">
-            Failed to save settings. Please try again.
-          </p>
+          <div className="mt-6 border-2 border-red-600 bg-white p-3">
+            <p className="text-xs font-bold uppercase tracking-wide text-red-700">
+              Failed to save settings. Please try again.
+            </p>
+          </div>
         )}
       </section>
     </div>

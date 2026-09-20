@@ -17,6 +17,9 @@ export interface InsiderRole {
   isDirector: boolean;
   isTenPercentOwner: boolean;
   effectiveDate: string | null;
+  company: {
+    name: string;
+  };
 }
 
 export interface Transaction {

@@ -62,7 +62,11 @@ export function WatchlistButton({
       type="button"
       onClick={handleClick}
       disabled={isPending}
-      className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+      className={`border-2 border-black px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all ${
+        watchlisted
+          ? "bg-black text-white hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-neutral-800 hover:shadow-[3px_3px_0_#000]"
+          : "bg-white text-black hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-neutral-50 hover:shadow-[3px_3px_0_#000]"
+      } disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-x-0 disabled:hover:translate-y-0 disabled:hover:shadow-none`}
     >
       {isPending
         ? "Saving..."

@@ -33,14 +33,17 @@ export function ClusterFeedPage() {
   });
 
   function resetFilters() {
-  setMinScoreInput(0);
-  setSector("");
-  setDateFrom("");
-  setDateTo("");
-  setPage(1);
-}
+    setMinScoreInput(0);
+    setSector("");
+    setDateFrom("");
+    setDateTo("");
+    setPage(1);
+  }
 
-  function handleFilterChange(setter: (value: string) => void, value: string) {
+  function handleFilterChange(
+    setter: (value: string) => void,
+    value: string,
+  ) {
     setter(value);
     setPage(1);
   }
@@ -48,14 +51,14 @@ export function ClusterFeedPage() {
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-48 animate-pulse rounded bg-gray-200" />
+        <div className="h-8 w-48 animate-pulse border-2 border-black bg-neutral-100" />
 
-        <div className="h-32 animate-pulse rounded-xl bg-gray-200" />
+        <div className="h-32 animate-pulse border-2 border-black bg-neutral-100" />
 
         {Array.from({ length: 5 }).map((_, index) => (
           <div
             key={index}
-            className="h-32 animate-pulse rounded-xl bg-gray-200"
+            className="h-32 animate-pulse border-2 border-black bg-neutral-100"
           />
         ))}
       </div>
@@ -64,10 +67,14 @@ export function ClusterFeedPage() {
 
   if (isError) {
     return (
-      <div className="rounded-xl border border-red-200 bg-red-50 p-6">
-        <h1 className="font-semibold text-red-700">Failed to load clusters</h1>
+      <div className="border-2 border-red-600 bg-white p-6 shadow-[4px_4px_0_#dc2626]">
+        <h1 className="font-bold uppercase tracking-wide text-red-700">
+          Failed to load clusters
+        </h1>
 
-        <p className="mt-1 text-sm text-red-600">Please try again later.</p>
+        <p className="mt-1 text-sm text-red-600">
+          Please try again later.
+        </p>
       </div>
     );
   }
@@ -79,9 +86,11 @@ export function ClusterFeedPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">Cluster Feed</h1>
+        <h1 className="text-3xl font-black uppercase tracking-tight">
+          Cluster Feed
+        </h1>
 
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-2 text-sm font-medium text-neutral-500">
           Recent insider trading clusters detected by the system.
         </p>
       </div>
@@ -101,10 +110,12 @@ export function ClusterFeedPage() {
       />
 
       {clusters.length === 0 ? (
-        <div className="rounded-xl border p-8 text-center">
-          <h2 className="text-lg font-semibold">No clusters found</h2>
+        <div className="border-2 border-black bg-white p-8 text-center shadow-[4px_4px_0_#000]">
+          <h2 className="text-lg font-bold uppercase tracking-wide">
+            No clusters found
+          </h2>
 
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-2 text-sm text-neutral-500">
             Try adjusting your filters.
           </p>
         </div>

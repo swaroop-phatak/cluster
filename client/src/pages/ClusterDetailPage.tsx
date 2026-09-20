@@ -12,9 +12,9 @@ export function ClusterDetailPage() {
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-64 animate-pulse rounded bg-gray-200" />
-        <div className="h-32 animate-pulse rounded-xl bg-gray-200" />
-        <div className="h-64 animate-pulse rounded-xl bg-gray-200" />
+        <div className="h-8 w-64 animate-pulse border-2 border-black bg-neutral-100" />
+        <div className="h-32 animate-pulse border-2 border-black bg-neutral-100" />
+        <div className="h-64 animate-pulse border-2 border-black bg-neutral-100" />
       </div>
     );
   }
@@ -26,9 +26,14 @@ export function ClusterDetailPage() {
     if (status === 404) {
       return (
         <div className="space-y-4">
-          <h1 className="text-2xl font-bold">Cluster not found</h1>
+          <h1 className="text-3xl font-black uppercase tracking-tight">
+            Cluster not found
+          </h1>
 
-          <Link to="/clusters" className="text-sm font-medium underline">
+          <Link
+            to="/clusters"
+            className="inline-block text-sm font-bold uppercase tracking-wide underline decoration-2 underline-offset-2"
+          >
             ← Back to clusters
           </Link>
         </div>
@@ -36,8 +41,14 @@ export function ClusterDetailPage() {
     }
 
     return (
-      <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-red-700">
-        Failed to load cluster details.
+      <div className="border-2 border-red-600 bg-white p-6 shadow-[4px_4px_0_#dc2626]">
+        <h1 className="font-bold uppercase tracking-wide text-red-700">
+          Failed to load cluster details
+        </h1>
+
+        <p className="mt-1 text-sm text-red-600">
+          Please try again later.
+        </p>
       </div>
     );
   }
@@ -48,10 +59,21 @@ export function ClusterDetailPage() {
 
   const uniqueInsiders = Array.from(
     new Map(
-      cluster.clusterTransactions.map((item) => [
-        item.transaction.filing.insider.id,
-        item.transaction.filing.insider,
-      ]),
+      cluster.clusterTransactions.map((item) => {
+        const insider = item.transaction.filing.insider;
+
+        const role = insider.roles.find(
+          (role) => role.companyId === cluster.company.id,
+        );
+
+        return [
+          insider.id,
+          {
+            ...insider,
+            title: role?.title ?? null,
+          },
+        ];
+      }),
     ).values(),
   );
 
@@ -59,28 +81,32 @@ export function ClusterDetailPage() {
     <div className="space-y-6">
       <Link
         to="/clusters"
-        className="text-sm font-medium text-gray-600 hover:text-gray-900"
+        className="inline-block text-sm font-bold uppercase tracking-wide underline decoration-2 underline-offset-2 transition-transform hover:-translate-x-0.5"
       >
         ← Back to clusters
       </Link>
 
       {/* Cluster Summary */}
-      <section className="rounded-xl border bg-white p-6 shadow-sm">
+      <section className="border-2 border-black bg-white p-6 shadow-[5px_5px_0_#000]">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
           <div className="min-w-0">
             <Link
               to={`/companies/${cluster.company.id}`}
-              className="block text-2xl font-bold hover:underline"
+              className="block text-2xl font-black uppercase tracking-tight hover:underline"
             >
               {cluster.company.name}
             </Link>
 
-            <div className="mt-1 flex flex-wrap gap-3 text-sm text-gray-500">
-              {cluster.company.ticker && <span>{cluster.company.ticker}</span>}
+            <div className="mt-2 flex flex-wrap gap-3 text-xs font-bold uppercase tracking-wide text-neutral-500">
+              {cluster.company.ticker && (
+                <span>{cluster.company.ticker}</span>
+              )}
 
               <span>CIK: {cluster.company.cik}</span>
 
-              {cluster.company.sector && <span>{cluster.company.sector}</span>}
+              {cluster.company.sector && (
+                <span>{cluster.company.sector}</span>
+              )}
             </div>
           </div>
 
@@ -91,85 +117,116 @@ export function ClusterDetailPage() {
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-lg bg-gray-50 p-4">
-            <p className="text-sm text-gray-500">Insiders</p>
-            <p className="mt-1 text-xl font-semibold">{cluster.insiderCount}</p>
+          <div className="border-2 border-black bg-neutral-50 p-4">
+            <p className="text-xs font-bold uppercase tracking-wide text-neutral-500">
+              Insiders
+            </p>
+
+            <p className="mt-1 text-xl font-black">
+              {cluster.insiderCount}
+            </p>
           </div>
 
-          <div className="rounded-lg bg-gray-50 p-4">
-            <p className="text-sm text-gray-500">Transactions</p>
-            <p className="mt-1 text-xl font-semibold">
+          <div className="border-2 border-black bg-neutral-50 p-4">
+            <p className="text-xs font-bold uppercase tracking-wide text-neutral-500">
+              Transactions
+            </p>
+
+            <p className="mt-1 text-xl font-black">
               {cluster.clusterTransactions.length}
             </p>
           </div>
 
-          <div className="rounded-lg bg-gray-50 p-4">
-            <p className="text-sm text-gray-500">Total Value</p>
-            <p className="mt-1 text-xl font-semibold">
+          <div className="border-2 border-black bg-neutral-50 p-4">
+            <p className="text-xs font-bold uppercase tracking-wide text-neutral-500">
+              Total Value
+            </p>
+
+            <p className="mt-1 text-xl font-black">
               ${Number(cluster.totalValue).toLocaleString()}
             </p>
           </div>
 
-          <div className="rounded-lg bg-gray-50 p-4">
-            <p className="text-sm text-gray-500">Status</p>
-            <p className="mt-1 text-xl font-semibold capitalize">
+          <div className="border-2 border-black bg-neutral-50 p-4">
+            <p className="text-xs font-bold uppercase tracking-wide text-neutral-500">
+              Status
+            </p>
+
+            <p className="mt-1 text-xl font-black capitalize">
               {cluster.status}
             </p>
           </div>
         </div>
 
-        <div className="mt-6 text-sm text-gray-500">
+        <div className="mt-6 border-t-2 border-black pt-4 text-xs font-bold uppercase tracking-wide text-neutral-500">
           Window: {new Date(cluster.windowStart).toLocaleDateString()} –{" "}
           {new Date(cluster.windowEnd).toLocaleDateString()}
         </div>
       </section>
 
-      <section className="rounded-xl border bg-white p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-semibold">Score Breakdown</h2>
+      {/* Score Breakdown */}
+      <section className="border-2 border-black bg-white p-6 shadow-[4px_4px_0_#000]">
+        <h2 className="mb-5 text-lg font-black uppercase tracking-tight">
+          Score Breakdown
+        </h2>
 
         {data.scoreBreakdown ? (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between gap-4">
-              <span className="text-sm text-gray-600">Insider Count</span>
-              <span className="font-semibold">
+          <div className="divide-y-2 divide-black">
+            <div className="flex items-center justify-between gap-4 py-3">
+              <span className="text-sm font-semibold">
+                Insider Count
+              </span>
+
+              <span className="font-black">
                 {data.scoreBreakdown.insiderCountScore}
               </span>
             </div>
 
-            <div className="flex items-center justify-between gap-4">
-              <span className="text-sm text-gray-600">Role Diversity</span>
-              <span className="font-semibold">
+            <div className="flex items-center justify-between gap-4 py-3">
+              <span className="text-sm font-semibold">
+                Role Diversity
+              </span>
+
+              <span className="font-black">
                 {data.scoreBreakdown.roleDiversityScore}
               </span>
             </div>
 
-            <div className="flex items-center justify-between gap-4">
-              <span className="text-sm text-gray-600">Total Value</span>
-              <span className="font-semibold">
+            <div className="flex items-center justify-between gap-4 py-3">
+              <span className="text-sm font-semibold">
+                Total Value
+              </span>
+
+              <span className="font-black">
                 {data.scoreBreakdown.totalValueScore}
               </span>
             </div>
 
-            <div className="flex items-center justify-between gap-4">
-              <span className="text-sm text-gray-600">Window Tightness</span>
-              <span className="font-semibold">
+            <div className="flex items-center justify-between gap-4 py-3">
+              <span className="text-sm font-semibold">
+                Window Tightness
+              </span>
+
+              <span className="font-black">
                 {data.scoreBreakdown.windowTightnessScore}
               </span>
             </div>
           </div>
         ) : (
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-neutral-500">
             Score breakdown is not available for this cluster.
           </p>
         )}
       </section>
 
       {/* Insiders */}
-      <section className="rounded-xl border bg-white p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-semibold">Insiders Involved</h2>
+      <section className="border-2 border-black bg-white p-6 shadow-[4px_4px_0_#000]">
+        <h2 className="mb-5 text-lg font-black uppercase tracking-tight">
+          Insiders Involved
+        </h2>
 
         {uniqueInsiders.length === 0 ? (
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-neutral-500">
             No insiders found for this cluster.
           </p>
         ) : (
@@ -178,11 +235,15 @@ export function ClusterDetailPage() {
               <Link
                 key={insider.id}
                 to={`/insiders/${insider.id}`}
-                className="block rounded-lg border p-4 hover:bg-gray-50"
+                className="block border-2 border-black p-4 transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-neutral-50 hover:shadow-[3px_3px_0_#000]"
               >
-                <p className="font-medium">{insider.name}</p>
+                <p className="font-bold">
+                  {insider.name}
+                </p>
 
-                <p className="mt-1 text-sm text-gray-500">CIK: {insider.cik}</p>
+                <p className="mt-1 text-sm font-medium text-neutral-500">
+                  {insider.title ?? "Role unknown"}
+                </p>
               </Link>
             ))}
           </div>
@@ -191,7 +252,9 @@ export function ClusterDetailPage() {
 
       {/* Transactions */}
       <section>
-        <h2 className="mb-4 text-lg font-semibold">Cluster Transactions</h2>
+        <h2 className="mb-4 text-lg font-black uppercase tracking-tight">
+          Cluster Transactions
+        </h2>
 
         <TransactionTable
           transactions={cluster.clusterTransactions.map(

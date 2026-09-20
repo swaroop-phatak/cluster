@@ -222,7 +222,16 @@ export async function getClusterDetail(clusterId: string) {
             include: {
               filing: {
                 include: {
-                  insider: true,
+                  insider: {
+                    include: {
+                      roles: {
+                        select: {
+                          title: true,
+                          companyId: true,
+                        },
+                      },
+                    },
+                  },
                 },
               },
             },

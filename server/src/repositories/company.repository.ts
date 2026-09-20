@@ -41,7 +41,18 @@ export async function getCompanyDashboard(companyId: string) {
       filings: {
         include: {
           transactions: true,
-          insider: true,
+          insider: {
+            include: {
+              roles: {
+                where: {
+                  companyId,
+                },
+                select: {
+                  title: true,
+                },
+              },
+            },
+          },
         },
         orderBy: { filingDate: "desc" },
         take: 20,
